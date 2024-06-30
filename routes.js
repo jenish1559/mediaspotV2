@@ -11,8 +11,8 @@ export const publicRoutes = [
  * These routes will redirect logged in  user to /settings
  */
 export const authRoutes = [
-    "auth/login",
-    "auth/register",
+    "/auth/login",
+    "/auth/register",
 ]
 
 /**

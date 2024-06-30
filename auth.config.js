@@ -1,5 +1,5 @@
 import GitHub from "next-auth/providers/github"
 
-export default { 
+export default   { 
     providers: [GitHub]
-}   
+}

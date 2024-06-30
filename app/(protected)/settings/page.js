@@ -9,3 +9,5 @@ const SettingPage = async () => {
         </div>
     )
 }
+
+export default SettingPage;
