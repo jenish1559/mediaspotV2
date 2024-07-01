@@ -19,9 +19,7 @@ export const login = async (values) => {
     }
     catch(error){
       if(error instanceof AuthError){
-        console.log("exceptoon ", error.type);
         switch(error.type){
-          
           case "CredentialsSignin":
             return { error : "Invalid Credentials!"};
           default:
