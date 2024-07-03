@@ -2,6 +2,7 @@
 import bcrypt from "bcrypt"
 import { RegisterSchema } from '@/schemas'
 import { db }  from "@/lib/db"
+import { generateVerificationToken } from "@/lib/token"
 
 export const register = async (values) => {
   const validatedField = RegisterSchema.safeParse(values);
@@ -29,7 +30,8 @@ export const register = async (values) => {
       password:hashedPassword,
     },
   })
-
+ 
+  const verificationToken = await generateVerificationToken(email);
   // TODO: Send verification email
-  return { success : "Register Successfully!"}
+  return { success : "Confirmation email sent!"}
 }

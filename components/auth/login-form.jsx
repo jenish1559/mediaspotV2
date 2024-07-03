@@ -29,12 +29,10 @@ export const LoginForm = () => {
   const onSubmit = (values) =>{
     startTransition (() => {
       login(values).then((data) => {
-        console.log("at fornt : ",data)
-            if(data.error !== undefined){
-              setError(data.error);
-            }
-                
-            setSuccess(data.success);
+           
+            setError(data?.error);
+            //TODO: Add when implement 2FA
+            //setSuccess(data.success);
       });
     })
     
