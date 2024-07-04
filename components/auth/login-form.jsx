@@ -12,9 +12,11 @@ import { LoginSchema } from '@/schemas/index'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
 import { login } from '@/actions/login'
+import { useSearchParams } from 'next/navigation'
 
 export const LoginForm = () => {
-
+  const searchParams = useSearchParams();
+  const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email already in use with diffrent provider!" : "";
   const [error,setError] = useState("")
   const [success,setSuccess] = useState("")
   const [isPending, startTransition ] = useTransition();
@@ -32,7 +34,7 @@ export const LoginForm = () => {
            
             setError(data?.error);
             //TODO: Add when implement 2FA
-            //setSuccess(data.success);
+            setSuccess(data.success);
       });
     })
     
@@ -70,7 +72,7 @@ export const LoginForm = () => {
             } />
 
           </div>
-          <FormError message={error} />
+          <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full">
             Login
