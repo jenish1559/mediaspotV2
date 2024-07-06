@@ -34,7 +34,7 @@ export const LoginForm = () => {
            
             setError(data?.error);
             //TODO: Add when implement 2FA
-            setSuccess(data.success);
+            setSuccess(data?.success);
       });
     })
     
