@@ -18,6 +18,7 @@ const NewVerificationForm = () => {
 
     const onSubmit = useCallback(() => {
         if(success || error) return;
+        
         if(!token) {
             setError("Missing token!")
             return;
@@ -47,7 +48,7 @@ const NewVerificationForm = () => {
                     <FormError message={error}/>
                 )}
             </div>
-    </CardWrapper>
+    </CardWrapper>  
   )
 }
 

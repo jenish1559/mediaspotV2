@@ -7,30 +7,27 @@ import { Form, FormControl, FormField, FormItem, FormLabel,FormMessage} from "..
 import { CardWrapper } from './card-wrapper'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import { LoginSchema } from '@/schemas/index'
+import { ResetSchema } from '@/schemas/index'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
-import { login } from '@/actions/login'
-import { useSearchParams } from 'next/navigation'
-import  Link from 'next/link'
+import { reset } from '@/actions/reset'
 
-export const LoginForm = () => {
-  const searchParams = useSearchParams();
-  const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email already in use with diffrent provider!" : "";
+export const ResetForm = () => {
   const [error,setError] = useState("")
   const [success,setSuccess] = useState("")
   const [isPending, startTransition ] = useTransition();
   const form = useForm({
-    resolver : zodResolver(LoginSchema),
+    resolver : zodResolver(ResetSchema),
     defaultValues :{
       email : "",
-      password: "",
     },
   });
 
   const onSubmit = (values) =>{
+
+    console.log(values);
     startTransition (() => {
-      login(values).then((data) => {
+      reset(values).then((data) => {
            
             setError(data?.error);
             //TODO: Add when implement 2FA
@@ -40,7 +37,7 @@ export const LoginForm = () => {
     
   }
   return (
-    <CardWrapper headerLabel={"welcome back"} backButtonLabel={"Don't have an account ?"} backButtonhref={"/auth/register"} showSocial>
+    <CardWrapper headerLabel="Forgot your password?" backButtonLabel="Back to login" backButtonhref={"/auth/login"}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
@@ -51,36 +48,17 @@ export const LoginForm = () => {
                   <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="john.deo@exmple.com"
+                      placeholder="john.doe@exmple.com"
                       type="email" />
                 </FormControl>
                 <FormMessage/>
               </FormItem>
             } />
-             <FormField  control={form.control} name="password" render={({field}) => 
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="********"
-                      type="password" />
-                </FormControl>
-                <Button size="sm" className="px-0 font-normal" asChild variant="link">
-                  <Link href="/auth/reset">
-                  Forget password?
-                  </Link>
-                </Button>
-                <FormMessage/>
-              </FormItem>
-            } />
-
           </div>
-          <FormError message={error || urlError} />
+          <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full">
-            Login
+            Send reset email
           </Button>
         </form>
       </Form>
