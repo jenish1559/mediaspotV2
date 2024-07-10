@@ -8,8 +8,8 @@ const SettingPage = () => {
         logout();
     }
     return(
-        <div>
-            {JSON.stringify(user)}
+        <div className="bg-secondary flex p-4 items-center justify-center rounded-xl shadow-sm ">
+            
             <button type="submit" onClick={onClick}>
                 Sign out
             </button>
