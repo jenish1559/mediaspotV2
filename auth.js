@@ -52,6 +52,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           session.user.role = "USER" // token.role
           //TODO : implement ROle based authentications 
         }
+
+        if(session.user){
+          session.user.isTwoFactorEnabled = token.isTwoFactorEnabled;
+        }
         
         return session;
       },
@@ -60,6 +64,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
         const existingUser = await getUserById(token.sub);
         if(!existingUser) return token;
+
+        token.role = existingUser.role;
+        token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
  
         return token;
       }
