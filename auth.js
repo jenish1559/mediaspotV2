@@ -49,7 +49,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         }
 
         if(token.role && session.user){
-          session.user.role = "USER" // token.role
+          session.user.role = token.role; //"USER" // token.role
           //TODO : implement ROle based authentications 
         }
 
