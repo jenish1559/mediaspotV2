@@ -9,9 +9,6 @@ import { signIn } from 'next-auth/react'
 export const Social = () => {
 
   const onClick = (provider)  => {
-    
-    console.log(provider);
-
     signIn(provider, {
       callbackUrl: DEFAULT_LOGIN_REDIRECT
     })

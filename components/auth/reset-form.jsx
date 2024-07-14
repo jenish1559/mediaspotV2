@@ -25,7 +25,6 @@ export const ResetForm = () => {
 
   const onSubmit = (values) =>{
 
-    console.log(values);
     startTransition (() => {
       reset(values).then((data) => {
            

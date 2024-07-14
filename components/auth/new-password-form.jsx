@@ -29,7 +29,6 @@ const token = searchParams.get("token");
 
   const onSubmit = (values) =>{
 
-    console.log(values);
     startTransition (() => {
       newPassword(values,token).then((data) => {
            

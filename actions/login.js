@@ -70,7 +70,6 @@ export const login = async (values) => {
       else{
         
         const twoFactorToken = await generateTwoFactorToken(existingUser.email);
-        console.log(twoFactorToken);
         await sendTwoFactorTokenEmail(twoFactorToken.email,twoFactorToken.token);
         return { twoFactor: true};
       }

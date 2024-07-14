@@ -7,7 +7,7 @@ import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation
 import { getAccountByUserId } from "./data/account"
 
 
-export const { auth, handlers, signIn, signOut } = NextAuth({
+export const { auth, handlers, signIn, signOut, update } = NextAuth({
     pages: {
       signIn:"/auth/login",
       error: "/auth/error"
@@ -57,11 +57,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           session.user.isTwoFactorEnabled = token.isTwoFactorEnabled;
           session.user.name = token.name;
           session.user.email = token.email;
-          session.user.isOAuth = token.isOAuth;
+          session.user.isOAuth = token.isOAuth; 
 
         }
 
-        
+       
         return session;
       },
       async jwt({token}){ 
@@ -77,7 +77,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.email = existingUser.email,
         token.role = existingUser.role;
         token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
- 
+        
         return token;
       }
     },

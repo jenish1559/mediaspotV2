@@ -22,7 +22,6 @@ const [success, setSuccess] = useState();
             setSuccess(data.success);
             setError(data.error);
         })
-        console.log(token);
     },[token])
 
 

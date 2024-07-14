@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { BadgeIcon } from "@radix-ui/react-icons"
-import { Badge } from "./ui/badge"
+import { Badge } from "@/components/ui/badge"
 
 export const UserInfo = ({user, label}) => {
+    console.log(user);
     return(
        <Card className="w-[600px] shadow-md">
         <CardHeader>
@@ -47,8 +47,9 @@ export const UserInfo = ({user, label}) => {
                 <p className="text-sm font-medium"> 
                     Two Factor Authentication
                 </p>
-                <Badge variant={user?.twoFactorEnabled ? "success" : "destructive"}>
-                {user?.twoFactorEnabled ? "ON" : "OFF"}
+                <Badge variant={user?.isTwoFactorEnabled ? "success" : "destructive"}>
+                    {console.log(user.isTwoFactorEnabled)}
+                     {user?.isTwoFactorEnabled ? "ON" : "OFF"}
                 </Badge>
                 
             </div>
