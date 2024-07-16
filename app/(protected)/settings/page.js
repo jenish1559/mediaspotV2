@@ -17,6 +17,7 @@ import { UserRole } from "@prisma/client";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { Switch } from "@/components/ui/switch";
+import { ScrollArea } from "@/components/ui/scroll-area";
 const SettingPage = () => {
     const user = useCurrentUser();
     const { update } = useSession();
@@ -61,6 +62,7 @@ const SettingPage = () => {
                 </p>
             </CardHeader>
             <CardContent className="gap-y-4">
+                <ScrollArea className="h-[400px] p-2" >
                 <Form {...form}>
                     <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
                         <div className="space-y-4">
@@ -188,6 +190,7 @@ const SettingPage = () => {
                         </Button>
                     </form>
                 </Form>
+                </ScrollArea>
             </CardContent>
         </Card>
 
