@@ -1,8 +1,22 @@
-import React from 'react'
+"use client"
+import React, { useEffect } from 'react'
 
-export const DashboardPage = () => {
+import { useStoreModal } from '@/hooks/use-store-modal'
+
+const DashboardPage = () => {
+  const onOpen = useStoreModal((state) => state.onOpen);
+  const isOpen = useStoreModal((state) => state.isOpen);
+
+  useEffect(() => {
+    if(!isOpen){
+      onOpen();
+    };
+  },[isOpen, onOpen]);
+
   return (
-    <div>dashboard page</div>
+    <div className="p-4">
+      Root page;
+    </div>
   )
 }
 
