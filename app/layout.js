@@ -3,7 +3,6 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import "./globals.css";
 import { Toaster } from "sonner";
-import { ModalProvider } from '@/providers/modal-providers';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +18,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Toaster/>
-        <ModalProvider/>
         {children}
         </body>
     </html>
