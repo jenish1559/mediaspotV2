@@ -1,7 +1,8 @@
+"use server"
 import React from 'react'
 import { ModalProvider } from '@/providers/modal-providers';
 
-export const DashboardLayout = ({children}) => {
+const DashboardLayout = async ({children}) => {
   return (
     <div className="flex flex-col gap-y-4">
       <ModalProvider/>

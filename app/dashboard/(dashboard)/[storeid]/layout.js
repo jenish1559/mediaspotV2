@@ -4,21 +4,32 @@ import { redirect } from "next/navigation";
 
 const DashboardLayout1 = async ({children,params}) => {
 
-const {userId} = auth();
-if(!userId){
-    redirect('/auth/login')
+const user = await auth();
+const userId = user.id;
+console.log("ID:", user)
+console.log("storeId :",params.storeid)
+if(!user){
+    redirect('/auth/login');
 }
 
-const store = await db.store.findFirst({
-    where : {
-        id:params.storeId,
-        userId
+try{
+    const store = await db.store.findFirst({
+        where : {
+            id: params.storeid,
+            userId
+        }
+    });
+    console.log("store :" ,store);
+
+    if(!store){
+        redirect('/dashboard');
     }
-});
-
-if(!store){
-    redirect('/');
 }
+catch(error){
+
+    console.log("error123 :" ,error);
+}
+
 
 return(
     <>
