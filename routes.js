@@ -5,7 +5,8 @@
 export const publicRoutes = [
     "/",
     "/auth/new-verification",
-    "/api/routes"
+    "/api/routes",
+    "/playground"
 ];
 
 /**

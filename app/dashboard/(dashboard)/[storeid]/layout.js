@@ -1,6 +1,7 @@
 import { auth } from "@/auth"
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
+import Navbar from "../../_components/navbar";
 
 const DashboardLayout1 = async ({children,params}) => {
 
@@ -34,7 +35,7 @@ catch(error){
 return(
     <>
     <div>
-        this will be nav bar
+        <Navbar/>
         {children}
     </div>
     </>
