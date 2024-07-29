@@ -8,7 +8,6 @@ const SettingsPage = async ({params}) => {
 
   const user = await auth();
   const userId = user.id;
-  console.log("ID:", user)
 
   if (!user) {
     redirect('/auth/login');

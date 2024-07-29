@@ -37,7 +37,6 @@ const SettingPage = () => {
         }
 
     })
-    console.log("settings : ", user);
     const onSubmit = (values) => {
         startTransition(() => {
             settings(values)

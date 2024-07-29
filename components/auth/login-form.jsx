@@ -45,7 +45,6 @@ export const LoginForm = () => {
         if (data?.twoFactor) {
           setShowTwoFactor(true);
         }
-        //TODO: Add when implement 2FA
       });
     })
 

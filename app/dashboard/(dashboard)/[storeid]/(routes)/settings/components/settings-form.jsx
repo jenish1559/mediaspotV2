@@ -9,6 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input';
+import axios, { Axios } from 'axios';
+import { useParams, useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 
 const formSchema = z.object({
@@ -16,9 +19,11 @@ const formSchema = z.object({
 })
 
 const SettingsForm = ({ initialData }) => {
+    const router = useRouter();
+    const params = useParams();
+
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-
     
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -26,7 +31,21 @@ const SettingsForm = ({ initialData }) => {
     });
     
     const onSubmit = async (data) =>{
-        console.log(data);
+        try{
+
+            console.log("storeId",params.storeid)
+            setLoading(true);
+            await axios.patch(`/api/stores/${params.storeid}`,data)
+            router.refresh();
+            toast.success("Store updated.")
+        }
+        catch(error){
+            console.log(error)
+            toast.error("somthing went www wrong!");
+        }
+        finally{
+            setLoading(false);
+        }
     }
     //type SettingsForm = z.infer<typeof formSchema>;
     

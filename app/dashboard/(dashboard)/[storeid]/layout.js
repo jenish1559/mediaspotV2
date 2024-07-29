@@ -7,8 +7,6 @@ const DashboardLayout1 = async ({children,params}) => {
 
 const user = await auth();
 const userId = user.id;
-console.log("ID:", user)
-console.log("storeId :",params.storeid)
 if(!user){
     redirect('/auth/login');
 }
@@ -20,7 +18,6 @@ try{
             userId
         }
     });
-    console.log("store :" ,store);
 
     if(!store){
         redirect('/dashboard');
