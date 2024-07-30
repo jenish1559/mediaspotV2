@@ -36,7 +36,7 @@ const StoreSwitcher = ({ className, items = [] }) => {
 
     const [open, setOpen] = useState(false);
 
-    const onStoreSelect = ({ store }) => {
+    const onStoreSelect = (store) => {
         setOpen(false);
         router.push(`/dashboard/${store.value}`);
     }
@@ -82,6 +82,7 @@ const StoreSwitcher = ({ className, items = [] }) => {
                                 storeModal.onOpen();
                             }}>
                                 <LuPlusCircle className="mr-2 h-4 w-4" />
+                                Create Store
                             </CommandItem>
                         </CommandGroup>
                     </CommandList>

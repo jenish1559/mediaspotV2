@@ -11,7 +11,7 @@ const Navbar = async () => {
   if(!user){
     redirect("/auth/login")
   }
-  const userId = user.id;
+  const userId = user?.id;
 
   const stores = await db.store.findMany({
     where : {

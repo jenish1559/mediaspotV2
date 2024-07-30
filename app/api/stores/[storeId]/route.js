@@ -1,37 +1,27 @@
-import { auth } from '@/auth';
+import { currentUser } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
  
 export async function PATCH(req,{params}) {
 
   try{
-    const user = await auth();
-    console.log("user:" ,user)
-    const userId = user.id
+    const user = await  currentUser();
     const body = await req.json();
-    console.log("2")
     const {name} = body;
-    console.log("3")
 
-    if(!userId){
-      console.log("userId : ",userId)
-
+    if(!user.id){
         return new NextResponse("Unauthenticated",{status:401});
     }
-    console.log("4")
     if(!name){
         return new NextResponse("Name id is required",{status:400})
     }
-    console.log("5")
-    if(!params.storeid){
+    if(!params.storeId){
         return new NextResponse("Store id is required",{status: 400})
     }
-    console.log("6")
-   
-    console.log("userId:" ,userId)
+    const userId = user.id;
     const store = await db.store.updateMany({
             where :{
-                id: params.storeid,
+                id: params.storeId,
                 userId,
             },
             data:{
@@ -39,7 +29,7 @@ export async function PATCH(req,{params}) {
             }
     })
 
-    return new NextResponse.json(store)
+    return NextResponse.json(store)
   }
   catch(error){
     console.log('[STORE_PATCH]',error);
@@ -50,20 +40,20 @@ export async function PATCH(req,{params}) {
 export async function DELETE(req,{params}) {
 
     try{
-      const user = await auth();
+      const user = await  currentUser();
   
-      if(!user.Id){
+      if(!user.id){
           return new NextResponse("Unauthenticated",{status:401});
       }
    
-      if(!params.storeid){
+      if(!params.storeId){
           return new NextResponse("Store id is required",{status: 400})
       }
 
-      const userId = user.Id; 
+      const userId = user.id; 
       const store = await db.store.deleteMany({
               where :{
-                  id: params.storeid,
+                  id: params.storeId,
                   userId,
               },
              
