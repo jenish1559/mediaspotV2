@@ -1,6 +1,6 @@
 import { UserButton } from '@/components/auth/user-button'
 import React from 'react'
-import MainNav from '@/app/dashboard/_components/mainnav'
+import MainNav from '@/app/dashboard/_components/main-nav'
 import StoreSwitcher from '@/app/dashboard/_components/store-switcher'
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
