@@ -18,10 +18,11 @@ import { useOrigin } from '@/hooks/use-origin';
 
 
 const formSchema = z.object({
-    name: z.string().min(1),
+    label: z.string().min(1),
+    imageUrl: z.string().min(1),
 })
 
-const SettingsForm = ({ initialData }) => {
+const BillboardForm = ({ initialData }) => {
     const router = useRouter();
     const params = useParams();
     const origin = useOrigin();
@@ -29,9 +30,17 @@ const SettingsForm = ({ initialData }) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const title = initialData ? "Edit billboard" : "Create billboard";
+    const description = initialData ? "Edit billboard" : "Create billboard";
+    const toastMessage = initialData ? "Edit billboard" : "Create billboard";
+    const action = initialData ? "Edit billboard" : "Create billboard";
+    
     const form = useForm({
         resolver: zodResolver(formSchema),
-        defaultValues: initialData,
+        defaultValues: initialData || {
+            label: '',
+            imageUrl: ''
+        },
     });
 
     const onSubmit = async (data) => {
@@ -76,16 +85,18 @@ const SettingsForm = ({ initialData }) => {
         <>
             <AleartModal isOpen={open} onClose={() => setOpen(false)} onConfirm={onDelete} loading={loading} />
             <div className="flex items-center justify-between">
-                <Heading title="Settings"
-                    description="Manage store" />
+                <Heading title={title}
+                    description={description} />
 
-                <Button variant="destructive"
+                { initialData && ( 
+                    <Button variant="destructive"
                     size="icon"
                     disabled={loading}
                     onClick={() => setOpen(true)}
                 >
                     <LuTrash className="h-4 w-4" />
-                </Button>
+                    </Button>
+                )}
             </div>
             <Separator />
             <Form {...form}>
@@ -96,16 +107,14 @@ const SettingsForm = ({ initialData }) => {
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Label</FormLabel>
                                     <FormControl>
                                         <Input {...field}
                                             disabled={loading}
-                                            placeholder="Store name" />
+                                            placeholder="Billboard label" />
                                     </FormControl>
                                 </FormItem>
-
                             )} />
-
                     </div>
                     <Button disabled={loading} className="ml-auto" type="submit" >
                         Save changes
@@ -113,9 +122,8 @@ const SettingsForm = ({ initialData }) => {
                 </form>
             </Form>
             <Separator />
-            <ApiAlert title="NEXT_PUBLIC_API" description={`${origin}/api/${params.storeid}`} variant="public" />
         </>
     )
 }
 
-export default SettingsForm;
+export default BillboardForm;
