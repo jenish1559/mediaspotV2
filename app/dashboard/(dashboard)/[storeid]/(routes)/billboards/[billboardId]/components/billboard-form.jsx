@@ -15,6 +15,7 @@ import { toast } from 'sonner';
 import AleartModal from '@/components/modals/aleart-modal';
 import { ApiAlert } from '@/components/ui/api-alert';
 import { useOrigin } from '@/hooks/use-origin';
+import ImageUpload from '@/components/ui/image-upload';
 
 
 const formSchema = z.object({
@@ -31,9 +32,9 @@ const BillboardForm = ({ initialData }) => {
     const [loading, setLoading] = useState(false);
 
     const title = initialData ? "Edit billboard" : "Create billboard";
-    const description = initialData ? "Edit billboard" : "Create billboard";
-    const toastMessage = initialData ? "Edit billboard" : "Create billboard";
-    const action = initialData ? "Edit billboard" : "Create billboard";
+    const description = initialData ? "Edit a billboard" : "Add a new billboard";
+    const toastMessage = initialData ? "Billboard updated." : "Billboard created.";
+    const action = initialData ? "save billboard" : "Create";
     
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -47,13 +48,17 @@ const BillboardForm = ({ initialData }) => {
         try {
 
             setLoading(true);
-            await axios.patch(`/api/stores/${params.storeid}`, data)
+            if(initialData){
+                await axios.patch(`/api/${params.storeid}/billboards/${params.billboardId}`, data)
+            } else {
+                await axios.post(`/api/${params.storeid}/billboards`, data)
+            }
             router.refresh();
             toast.success("Store updated.");
         }
         catch (error) {
             console.log(error);
-            toast.error("somthing went www wrong!");
+            toast.error("something went wrong.");
         }
         finally {
             setLoading(false);
@@ -63,14 +68,14 @@ const BillboardForm = ({ initialData }) => {
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/stores/${params.storeid}`);
+            await axios.delete(`/api/${params.storeid}/${params.billboardId}`);
             router.refresh();
-            router.push("/Dashboard");
-            toast.success("Store deleted.");
+            router.push("/");
+            toast.success("Billboard deleted.");
         }
         catch (error) {
             console.log(error);
-            toast.error("somthing went www wrong!");
+            toast.error("Make sure you removed all categories using this billboard first.");
         }
         finally {
             setLoading(false);
@@ -101,6 +106,20 @@ const BillboardForm = ({ initialData }) => {
             <Separator />
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+                <FormField
+                            control={form.control}
+                            name="imageUrl"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Background image</FormLabel>
+                                    <FormControl>
+                                        <ImageUpload value={field.value ? [field.value] : []}
+                                                    disabled={loading}
+                                                    onChange={(url) => field.onChange(url)}
+                                                    onRemove={() => onChange("")}/>
+                                    </FormControl>
+                                </FormItem>
+                            )} />
                     <div className="grid grid-cols-3 gap-8">
                         <FormField
                             control={form.control}
