@@ -46,7 +46,7 @@ const BillboardForm = ({ initialData }) => {
 
     const onSubmit = async (data) => {
         try {
-
+            console.log("hello");
             setLoading(true);
             if(initialData){
                 await axios.patch(`/api/${params.storeid}/billboards/${params.billboardId}`, data)
@@ -54,9 +54,10 @@ const BillboardForm = ({ initialData }) => {
                 await axios.post(`/api/${params.storeid}/billboards`, data)
             }
             router.refresh();
+            //router.push(`/${params.storeid}/billboards`)
             toast.success("Store updated.");
         }
-        catch (error) {
+        catch (error) { 
             console.log(error);
             toast.error("something went wrong.");
         }
@@ -123,7 +124,7 @@ const BillboardForm = ({ initialData }) => {
                     <div className="grid grid-cols-3 gap-8">
                         <FormField
                             control={form.control}
-                            name="name"
+                            name="label"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Label</FormLabel>

@@ -15,7 +15,7 @@ const BillboardClient = () => {
     <Heading title="Billboards (0)"
                     description="Manage billboards for your store" />
 
-                <Button onClick={()=> Router.push(`/${params.storeId}/billboards/new`)}>
+                <Button onClick={()=> router.push(`dashboard/${params.storeid}/billboards/new`)}>
                     <LuPlus className="h-4 w-4" />
                     Add New
                 </Button>
