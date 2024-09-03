@@ -4,15 +4,18 @@ import { Button } from '@/components/ui/button'
 import React from 'react'
 import Heading from '@/app/dashboard/_components/heading'
 import { LuPlus } from 'react-icons/lu'
+import { Separator } from '@/components/ui/separator'
+import { DataTable } from '@/components/ui/data-table'
+import { columns } from './columns'
 
-const BillboardClient = () => {
+const BillboardClient = ({data}) => {
     const router = useRouter();
     const params = useParams();
     
   return (
     <>
     <div className="flex items-center justify-between">
-    <Heading title="Billboards (0)"
+    <Heading title={`Billboards (${data.length})`}
                     description="Manage billboards for your store" />
 
                 <Button onClick={()=> router.push(`dashboard/${params.storeid}/billboards/new`)}>
@@ -20,6 +23,9 @@ const BillboardClient = () => {
                     Add New
                 </Button>
     </div>
+    <Separator/>
+    <DataTable columns={columns} data={data} searchKey="label"/>
+
     </>
   )
 }

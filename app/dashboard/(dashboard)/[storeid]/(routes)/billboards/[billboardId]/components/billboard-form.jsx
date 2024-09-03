@@ -9,11 +9,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import AleartModal from '@/components/modals/aleart-modal';
-import { ApiAlert } from '@/components/ui/api-alert';
 import { useOrigin } from '@/hooks/use-origin';
 import ImageUpload from '@/components/ui/image-upload';
 
