@@ -68,9 +68,9 @@ const BillboardForm = ({ initialData }) => {
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/${params.storeid}/${params.billboardId}`);
+            await axios.delete(`/api/${params.storeid}/billboards/${params.billboardId}`);
             router.refresh();
-            router.push("/");
+            router.push(`/dashboard/${params.storeid}/billboards`);
             toast.success("Billboard deleted.");
         }
         catch (error) {
@@ -135,8 +135,9 @@ const BillboardForm = ({ initialData }) => {
                                 </FormItem>
                             )} />
                     </div>
+
                     <Button disabled={loading} className="ml-auto" type="submit" >
-                        Save changes
+                        {action}
                     </Button>
                 </form>
             </Form>

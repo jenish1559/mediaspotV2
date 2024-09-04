@@ -33,7 +33,7 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }) => {
                                 <LuTrash className="h-4 w-4" />
                             </Button>
                         </div>
-                        <Image fill className="object-cover" alt="Image" src={url} />
+                        <Image fill className="object-cover" alt="Image" src={url}   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     </div>
                 ))}
             </div>

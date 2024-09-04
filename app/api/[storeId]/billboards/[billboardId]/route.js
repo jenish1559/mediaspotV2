@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 
 
 export async function GET(req, { params }) {
-
     try {
 
         if (!params.billboardId) {
@@ -18,7 +17,7 @@ export async function GET(req, { params }) {
 
         })
 
-        return new NextResponse.json(billboard)
+        return NextResponse.json(billboard)
     }
     catch (error) {
         console.log('[BILLBOARD_GET]', error);
@@ -101,14 +100,15 @@ export async function DELETE(req, { params }) {
         if (!storeByUserId) {
             return new NextResponse("Unauthorized", { status: 403 });
         }
+        
         const billboard = await db.billboard.deleteMany({
             where: {
-                id: params.storeId,
+                id: params.billboardId,
             },
 
         })
 
-        return new NextResponse.json(billboard)
+        return NextResponse.json(billboard)
     }
     catch (error) {
         console.log('[BILLBOARD_DELETE]', error);
