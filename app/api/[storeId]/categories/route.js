@@ -8,19 +8,19 @@ export async function POST(req,{params}){
         console.log("POST METHOD");
         const user = await  currentUser();
         const body = await req.json();
-        const { label, imageUrl } = body;
+        const { name, billboardId } = body;
         const userId = user.id;
         
         if(!userId){
             return new NextResponse("Unauthenticated", { status:401 });
         }
 
-        if(!label){
+        if(!name){
             return new NextResponse("Name is required",{ status: 400});
         }
 
-        if(!imageUrl){
-            return new NextResponse("Image is required",{ status: 400});
+        if(!billboardId){
+            return new NextResponse("Billboard id is required",{ status: 400});
         }
 
         if(!params.storeId){
@@ -37,19 +37,19 @@ export async function POST(req,{params}){
         if(!storeByUserId){
             return new NextResponse("Unauthorized", {status : 403});
         }
-        const billboard = await db.billboard.create({
+        const category = await db.category.create({
             data :{
-                label,
-                imageUrl,
+                name,
+                billboardId,
                 storeId : params.storeId
             }
         })
 
 
-        return NextResponse.json(billboard);
+        return NextResponse.json(category);
     }
     catch(error){
-        console.log('[BILLBOARDS_POST] : ', error)
+        console.log('[CATEGORY_POST] : ', error)
         return new NextResponse("internal error",{ status: 500});
     }
 }
@@ -61,17 +61,17 @@ export async function GET(req,{params}){
             return new NextResponse("Store id is required",{ status: 400});
         }
        
-        const billboards = await db.billboard.findMany({
+        const categories = await db.category.findMany({
             where :{
                 storeId : params.storeId
             }
         })
 
 
-        return NextResponse.json(billboards);
+        return NextResponse.json(categories);
     }
     catch(error){
-        console.log('[BILLBOARDS_GET] : ', error)
+        console.log('[CATEGORY_GET] : ', error)
         return new NextResponse("internal error",{ status: 500});
     }
 }

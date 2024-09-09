@@ -3,7 +3,7 @@ import BillboardClient from "./components/client"
 import { Billboarscolumn } from "./components/columns"
 import { format } from "date-fns"
 
-const BillbooardsPage = async ({params}) => {
+const BillboardsPage = async ({params}) => {
 
   const billboards = await db.billboard.findMany({
     where : {
@@ -28,4 +28,4 @@ const BillbooardsPage = async ({params}) => {
   )
 }
 
-export default BillbooardsPage;
+export default BillboardsPage;
