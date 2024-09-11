@@ -19,7 +19,7 @@ const CategoriesPage = async ({params}) => {
   const formattedCategories  = categories.map((item) => ({
     id : item.id,
     name : item.name,
-    billboardLabel : item.billboardLabel,
+    billboardLabel : item.billboard.label,
     createdAt : format(item.createdAt, "MMM dd, yyyy" )
   }))
   return (

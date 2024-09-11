@@ -22,6 +22,11 @@ function MainNav({ className }) {
       active: pathname == `/dashboard/${params.storeid}/billboards`
     },
     {
+      href: `/dashboard/${params.storeid}/categories`,
+      label: "Category",
+      active: pathname == `/dashboard/${params.storeid}/categories`
+    },
+    {
       href: `/dashboard/${params.storeid}/settings`,
       label: "Settings",
       active: pathname == `/dashboard/${params.storeid}/settings`

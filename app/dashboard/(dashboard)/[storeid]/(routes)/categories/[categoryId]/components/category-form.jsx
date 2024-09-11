@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { Separator } from '@/components/ui/separator';
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
@@ -39,13 +39,12 @@ const CategoryForm = ({ initialData, billboards}) => {
         resolver: zodResolver(formSchema),
         defaultValues: initialData || {
             name: '',
-            billboards : []
+            billboards : ''
         },
     });
 
     const onSubmit = async (data) => {
         try {
-            console.log("hello");
             setLoading(true);
             if (initialData) {
                 await axios.patch(`/api/${params.storeid}/categories/${params.categoryId}`, data)
@@ -53,7 +52,7 @@ const CategoryForm = ({ initialData, billboards}) => {
                 await axios.post(`/api/${params.storeid}/categories`, data)
             }
             router.refresh();
-            router.push(`/${params.storeid}/categories`)
+            router.push(`/dashboard/${params.storeid}/categories`)
             toast.success("Store updated.");
         }
         catch (error) {
@@ -68,7 +67,7 @@ const CategoryForm = ({ initialData, billboards}) => {
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/${params.storeid}/categories/${params.billboardId}`);
+            await axios.delete(`/api/${params.storeid}/categories/${params.categoryId}`);
             router.refresh();
             router.push(`/dashboard/${params.storeid}/categories`);
             toast.success("Category deleted.");
@@ -116,6 +115,7 @@ const CategoryForm = ({ initialData, billboards}) => {
                                             disabled={loading}
                                             placeholder="Category name" />
                                     </FormControl>
+                                    <FormMessage/>
                                 </FormItem>
                             )} />
                         <FormField
@@ -123,9 +123,9 @@ const CategoryForm = ({ initialData, billboards}) => {
                             name="billboardId"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Billboard</FormLabel>
                                     <Select disabled={loading}
-                                        onValueChange={field.onValueChange}
+                                        onValueChange={field.onChange}
                                         value={field.value}
                                         defaultValue={field.value} >
                                         <FormControl>
@@ -143,6 +143,7 @@ const CategoryForm = ({ initialData, billboards}) => {
                                             ))}
                                         </SelectContent>
                                     </Select>
+                                    <FormMessage/>
                                 </FormItem>
                             )} />
                     </div>

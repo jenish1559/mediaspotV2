@@ -18,7 +18,7 @@ const CellAction = ({data}) => {
 
     const onCopy = (id) => {
         navigator.clipboard.writeText(id);
-        toast.success("Categoryategories Id copied to the clipboard.");
+        toast.success("Category Id copied to the clipboard.");
     }
 
     const onDelete = async () => {
@@ -26,11 +26,11 @@ const CellAction = ({data}) => {
             setLoading(true);
             await axios.delete(`/api/${params.storeid}/categories/${data.id}`);
             router.refresh();
-            toast.success("Billboard deleted.");
+            toast.success("Category deleted.");
         }
         catch (error) {
             console.log(error);
-            toast.error("Make sure you removed all categories using this billboard first.");
+            toast.error("Make sure you removed all product using this category first.");
         }
         finally {
             setLoading(false);
