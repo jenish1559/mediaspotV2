@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { Separator } from '@/components/ui/separator';
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
@@ -14,15 +14,15 @@ import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import AleartModal from '@/components/modals/aleart-modal';
 import { useOrigin } from '@/hooks/use-origin';
-import { Select, SelectContent, SelectItem,SelectTrigger,SelectValue } from '@/components/ui/select';
+import ImageUpload from '@/components/ui/image-upload';
 
 
 const formSchema = z.object({
     name: z.string().min(1),
-    billboardId: z.string().min(1),
+    value: z.string().min(1),
 })
 
-const CategoryForm = ({ initialData, billboards}) => {
+const SizeForm = ({ initialData }) => {
     const router = useRouter();
     const params = useParams();
     const origin = useOrigin();
@@ -30,32 +30,32 @@ const CategoryForm = ({ initialData, billboards}) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const title = initialData ? "Edit category" : "Create category";
-    const description = initialData ? "Edit a category" : "Add a new category";
-    const toastMessage = initialData ? "Category updated." : "Category created.";
-    const action = initialData ? "save category" : "Create";
-
+    const title = initialData ? "Edit size" : "Create size";
+    const description = initialData ? "Edit a size" : "Add a new size";
+    const toastMessage = initialData ? "Size updated." : "Size created.";
+    const action = initialData ? "save size" : "Create";
+    
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: initialData || {
             name: '',
-            billboards : ''
+            value: ''
         },
     });
 
     const onSubmit = async (data) => {
         try {
             setLoading(true);
-            if (initialData) {
-                await axios.patch(`/api/${params.storeid}/categories/${params.categoryId}`, data)
+            if(initialData){
+                await axios.patch(`/api/${params.storeid}/sizes/${params.sizeId}`, data)
             } else {
-                await axios.post(`/api/${params.storeid}/categories`, data)
+                await axios.post(`/api/${params.storeid}/sizes`, data)
             }
-            router.push(`/dashboard/${params.storeid}/categories`)
+            router.push(`/${params.storeid}/sizes`)
             router.refresh();
-            toast.success("Store updated.");
+            toast.success("Size updated.");
         }
-        catch (error) {
+        catch (error) { 
             console.log(error);
             toast.error("something went wrong.");
         }
@@ -67,14 +67,14 @@ const CategoryForm = ({ initialData, billboards}) => {
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/${params.storeid}/categories/${params.categoryId}`);
+            await axios.delete(`/api/${params.storeid}/sizes/${params.sizeId}`);
             router.refresh();
-            router.push(`/dashboard/${params.storeid}/categories`);
-            toast.success("Category deleted.");
+            router.push(`/dashboard/${params.storeid}/sizes`);
+            toast.success("Size deleted.");
         }
         catch (error) {
             console.log(error);
-            toast.error("Make sure you removed all categories using this billboard first.");
+            toast.error("Make sure you removed all products using this size first.");
         }
         finally {
             setLoading(false);
@@ -82,6 +82,7 @@ const CategoryForm = ({ initialData, billboards}) => {
         }
     }
 
+   
 
     return (
         <>
@@ -90,13 +91,13 @@ const CategoryForm = ({ initialData, billboards}) => {
                 <Heading title={title}
                     description={description} />
 
-                {initialData && (
+                { initialData && ( 
                     <Button variant="destructive"
-                        size="icon"
-                        disabled={loading}
-                        onClick={() => setOpen(true)}
-                    >
-                        <LuTrash className="h-4 w-4" />
+                    size="icon"
+                    disabled={loading}
+                    onClick={() => setOpen(true)}
+                >
+                    <LuTrash className="h-4 w-4" />
                     </Button>
                 )}
             </div>
@@ -113,37 +114,21 @@ const CategoryForm = ({ initialData, billboards}) => {
                                     <FormControl>
                                         <Input {...field}
                                             disabled={loading}
-                                            placeholder="Category name" />
+                                            placeholder="Size name" />
                                     </FormControl>
-                                    <FormMessage/>
                                 </FormItem>
                             )} />
-                        <FormField
+                             <FormField
                             control={form.control}
-                            name="billboardId"
+                            name="value"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Billboard</FormLabel>
-                                    <Select disabled={loading}
-                                        onValueChange={field.onChange}
-                                        value={field.value}
-                                        defaultValue={field.value} >
-                                        <FormControl>
-                                            <SelectTrigger >
-                                                <SelectValue defaultValue={field.value}
-                                                         placeholder="Select a billboard"   />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            {billboards.map((billboard) => (
-                                                <SelectItem key={billboard.id}
-                                                            value={billboard.id} >
-                                                                {billboard.label}
-                                                            </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage/>
+                                    <FormLabel>Value</FormLabel>
+                                    <FormControl>
+                                        <Input {...field}
+                                            disabled={loading}
+                                            placeholder="Size value" />
+                                    </FormControl>
                                 </FormItem>
                             )} />
                     </div>
@@ -158,4 +143,4 @@ const CategoryForm = ({ initialData, billboards}) => {
     )
 }
 
-export default CategoryForm;
+export default SizeForm;
