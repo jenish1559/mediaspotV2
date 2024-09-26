@@ -51,7 +51,7 @@ const SizeForm = ({ initialData }) => {
             } else {
                 await axios.post(`/api/${params.storeid}/sizes`, data)
             }
-            router.push(`/${params.storeid}/sizes`)
+            router.push(`/dashboard/${params.storeid}/sizes`)
             router.refresh();
             toast.success("Size updated.");
         }
