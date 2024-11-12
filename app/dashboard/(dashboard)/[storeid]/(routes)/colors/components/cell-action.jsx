@@ -12,24 +12,25 @@ import AleartModal from '@/components/modals/aleart-modal';
 const CellAction = ({data}) => {
     const router = useRouter();
     const params = useParams();
+    console.log(data);
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const onCopy = (id) => {
         navigator.clipboard.writeText(id);
-        toast.success("Size Id copied to the clipboard.");
+        toast.success("Color Id copied to the clipboard.");
     }
 
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/${params.storeid}/sizes/${data.id}`);
+            await axios.delete(`/api/${params.storeid}/colors/${data.id}`);
             router.refresh();
-            toast.success("Size deleted.");
+            toast.success("Color deleted.");
         }
         catch (error) {
             console.log(error);
-            toast.error("Make sure you removed all products  using this size first.");
+            toast.error("Make sure you removed all products using this color first.");
         }
         finally {
             setLoading(false);
@@ -51,11 +52,11 @@ const CellAction = ({data}) => {
             <DropdownMenuLabel >
                 Action
             </DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => onCopy(data.id)}>
+            <DropdownMenuItem onClick={() => onCopy(data.Id)}>
                 <LuCopy className="mr-2 h-4 w-4" />
                 Copy Id
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => router.push(`/dashboard/${params.storeid}/sizes/${data.id}`)}>
+            <DropdownMenuItem onClick={() => router.push(`/dashboard/${params.storeid}/colors/${data.id}`)}>
                 <LuFileEdit className="mr-2 h-4 w-4" />
                 Update
             </DropdownMenuItem>

@@ -9,27 +9,28 @@ import { DataTable } from '@/components/ui/data-table'
 import { columns } from './columns'
 import ApiList from './api-list'
 
-const SizesClient = ({data}) => {
+const ColorsClient = ({data}) => {
     const router = useRouter();
     const params = useParams();
+    
   return (
     <>
     <div className="flex items-center justify-between">
-    <Heading title={`Sizes (${data.length})`}
+    <Heading title={`Colors (${data.length})`}
                     description="Add a new size." />
 
-                <Button onClick={()=> router.push(`/dashboard/${params.storeid}/sizes/new`)}>
+                <Button onClick={()=> router.push(`/dashboard/${params.storeid}/colors/new`)}>
                     <LuPlus className="h-4 w-4" />
                     Add New
                 </Button>
     </div>
     <Separator/>
     <DataTable columns={columns} data={data} searchKey="name"/>
-    <Heading title="API" description="API calls for Size" />
+    <Heading title="API" description="API calls for Colors" />
     <Separator />
-    <ApiList entityName="sizes" entityIdName="sizeId"/>
+    <ApiList entityName="colors" entityIdName="colorId"/>
     </>
   )
 }
 
-export default SizesClient
+export default ColorsClient
