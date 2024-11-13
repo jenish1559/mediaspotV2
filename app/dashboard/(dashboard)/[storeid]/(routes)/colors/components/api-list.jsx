@@ -11,10 +11,10 @@ const ApiList = ({entityName,entityIdName}) => {
   return (
     <>
     <ApiAlert title="GET" variant="public" description={`${basrUrl}/${entityName}`} />
-    <ApiAlert title="GET" variant="public" description={`${basrUrl}/${entityName}/${entityIdName}`} />
+    <ApiAlert title="GET" variant="public" description={`${basrUrl}/${entityName}/{${entityIdName}}`} />
     <ApiAlert title="POST" variant="admin" description={`${basrUrl}/${entityName}`} />
-    <ApiAlert title="PATCH" variant="admin" description={`${basrUrl}/${entityName}/${entityIdName}`} />
-    <ApiAlert title="DELETE" variant="admin" description={`${basrUrl}/${entityName}/${entityIdName}`} />
+    <ApiAlert title="PATCH" variant="admin" description={`${basrUrl}/${entityName}/{${entityIdName}}`} />
+    <ApiAlert title="DELETE" variant="admin" description={`${basrUrl}/${entityName}/{${entityIdName}}`} />
     </>
   )
 }

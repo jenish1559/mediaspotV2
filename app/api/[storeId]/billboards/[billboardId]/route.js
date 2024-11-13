@@ -12,7 +12,7 @@ export async function GET(req, { params }) {
       
         const billboard = await db.billboard.findUnique({
             where: {
-                id: params.storeId,
+                id: params.billboardId,
             },
 
         })

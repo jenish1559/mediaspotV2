@@ -37,6 +37,11 @@ function MainNav({ className }) {
       active: pathname == `/dashboard/${params.storeid}/colors`
     },
     {
+      href: `/dashboard/${params.storeid}/products`,
+      label: "Products",
+      active: pathname == `/dashboard/${params.storeid}/products`
+    },
+    {
       href: `/dashboard/${params.storeid}/settings`,
       label: "Settings",
       active: pathname == `/dashboard/${params.storeid}/settings`
