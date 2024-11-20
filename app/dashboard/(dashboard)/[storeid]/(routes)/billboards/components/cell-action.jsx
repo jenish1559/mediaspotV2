@@ -52,7 +52,7 @@ const CellAction = ({data}) => {
             <DropdownMenuLabel >
                 Action
             </DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => onCopy(data.Id)}>
+            <DropdownMenuItem onClick={() => onCopy(data.id)}>
                 <LuCopy className="mr-2 h-4 w-4" />
                 Copy Id
             </DropdownMenuItem>
