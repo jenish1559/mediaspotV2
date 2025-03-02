@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import OrderClient from "./components/client"
-import { Ordercolumn } from "./components/columns"
 import { format } from "date-fns"
+import { formatter } from "@/lib/utils";
 
 const OrdersPage = async ({params}) => {
 

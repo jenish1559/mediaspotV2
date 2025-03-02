@@ -5,6 +5,7 @@ import StoreSwitcher from '@/app/dashboard/_components/store-switcher'
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 import { db } from '@/lib/db'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 const Navbar = async () => {
   const user = await auth();
@@ -25,6 +26,7 @@ const Navbar = async () => {
         <StoreSwitcher items={stores} />
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
+          <ThemeToggle/>
           <UserButton />
         </div>
       </div>
